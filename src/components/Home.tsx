@@ -37,6 +37,15 @@ function Home() {
                   Navigate, control, and interact with websites using natural voice commands. Powered by advanced AI for seamless web
                   accessibility.
                </p>
+               <div className='mt-8'>
+                  <a
+                     href='https://chrome.google.com/webstore' // Replace with your Chrome extension link
+                     target='_blank'
+                     rel='noopener noreferrer'
+                     className='inline-block bg-blue-600 text-white text-lg font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105'>
+                     Get Your Chrome Extension Now
+                  </a>
+               </div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-12'>
@@ -113,6 +122,10 @@ function Home() {
                      <li className='flex items-center gap-2'>
                         <span className='w-2 h-2 bg-purple-400 rounded-full'></span>
                         "Read page" - Text-to-speech
+                     </li>
+                     <li className='flex items-center gap-2'>
+                        <span className='w-2 h-2 bg-purple-400 rounded-full'></span>
+                        "Stop reading" - Stop text-to-speech
                      </li>
                      <li className='flex items-center gap-2'>
                         <span className='w-2 h-2 bg-purple-400 rounded-full'></span>

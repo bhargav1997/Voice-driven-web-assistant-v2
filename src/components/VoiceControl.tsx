@@ -10,6 +10,7 @@ const VoiceControl: React.FC<VoiceControlProps> = ({ onCommand }) => {
    const [isListening, setIsListening] = useState(false);
    const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+   const [speechSynthesis, setSpeechSynthesis] = useState<SpeechSynthesis | null>(null);
 
    useEffect(() => {
       if ("webkitSpeechRecognition" in window) {
@@ -19,9 +20,14 @@ const VoiceControl: React.FC<VoiceControlProps> = ({ onCommand }) => {
 
          recognition.onresult = (event: SpeechRecognitionEvent) => {
             const command = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
-            console.log("command" + command);
+            console.log("Command:", command);
+
             if (event.results[event.results.length - 1].isFinal) {
-               onCommand(command);
+               if (command === "stop reading") {
+                  stopReading();
+               } else {
+                  onCommand(command);
+               }
             }
          };
 
@@ -31,6 +37,11 @@ const VoiceControl: React.FC<VoiceControlProps> = ({ onCommand }) => {
          };
 
          setRecognition(recognition);
+      }
+
+      // Initialize speech synthesis
+      if ("speechSynthesis" in window) {
+         setSpeechSynthesis(window.speechSynthesis);
       }
    }, [onCommand]);
 
@@ -44,6 +55,13 @@ const VoiceControl: React.FC<VoiceControlProps> = ({ onCommand }) => {
       }
       setIsListening(!isListening);
    }, [isListening, recognition]);
+
+   const stopReading = () => {
+      if (speechSynthesis && speechSynthesis.speaking) {
+         speechSynthesis.cancel();
+         console.log("Stopped reading.");
+      }
+   };
 
    return (
       <>
